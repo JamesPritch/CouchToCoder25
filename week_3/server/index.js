@@ -3,6 +3,11 @@ const app = express();
 const port = 3000;
 const fs = require("fs");
 const path = require("path");
+const cors = require("cors");
+
+// enabling CORS for any unknown origin
+app.use(cors());
+app.use(express.json())
 
 const recipesFilePath = path.join(__dirname, "recipes.json")
 
@@ -24,7 +29,15 @@ app.get('/recipes', (req, res) => {
 });
 
 app.post("/recipes", (req, res) => {
-    res.send("Recipe added, storing your favourite dishes.")
+    const newRecipe = req.body;
+    fs.readFile(recipesFilePath, 'utf8', (err, data) => {
+        const recipes = JSON.parse(data); // Parse the existing JSON array
+        recipes.push(newRecipe); // Add the new object to the array
+        console.log(recipes)
+        // Write the updated array back to the file
+        fs.writeFile(recipesFilePath, JSON.stringify(recipes), () => {});
+    });
+    res.send("Recipe added, storing your favourite dishes")
 });
 
 app.listen(port, () => {
