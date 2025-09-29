@@ -7,6 +7,8 @@ header {
     top: 0;
     z-index: 1000; /* Ensure the header stays above other content by putting it
     forward in the 3rd dimension*/
+    display: flex;
+    justify-content: space-around;
 }
 
 body {
@@ -22,4 +24,51 @@ footer {
     text-align: center;
     padding: 10px;
     margin-top: auto; /* Push the footer to the bottom */
+}
+
+h1 {
+    font-family: "pacifico";
+    font-size: 4vh;
+}
+
+header a {
+    text-decoration: none;
+    color: #F8F8F8;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    font-size: 2vh;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header div {
+    display: flex;
+}
+
+form {
+    width: 33%;
+    margin: 48px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+h2 {
+    margin: 24px;
+}
+
+#form-title {
+    margin: 24px;
+}
+
+@media screen and  (max-width: 600px) {
+    form {
+        width: 80%;
+        margin: 24px;
+    }
 }

@@ -28,6 +28,23 @@ app.get('/recipes', (req, res) => {
     });
 });
 
+app.get("/cuisine-data", (req, res) => {
+    fs.readFile(recipesFilePath, 'utf8', (err, data) => {
+        const recipes = JSON.parse(data);
+        const occurances = recipes.reduce((accumulator, recipe) => {
+            const currentCuisine = recipe.cuisine;
+            if(accumulator[currentCuisine]){
+                accumulator[currentCuisine] += 1;
+            } else {
+                accumulator[currentCuisine] = 1;
+            }
+            return accumulator;
+        }, {})
+        // console.log(occurances)
+        res.json(occurances);
+    })
+})
+
 app.post("/recipes", (req, res) => {
     const newRecipe = req.body;
     fs.readFile(recipesFilePath, 'utf8', (err, data) => {
